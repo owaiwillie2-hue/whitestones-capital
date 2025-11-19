@@ -81,14 +81,14 @@ const AdminDepositsTab = ({ onUpdate }: AdminDepositsTabProps) => {
   };
 
   if (loading) {
-    return <div className="text-white">Loading deposits...</div>;
+    return <div className="text-foreground">Loading deposits...</div>;
   }
 
   return (
     <div className="space-y-4">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-slate-300">
-          <thead className="text-xs text-slate-400 uppercase bg-slate-700">
+        <table className="w-full text-sm text-foreground">
+          <thead className="text-xs text-muted-foreground uppercase bg-muted">
             <tr>
               <th className="px-4 py-2 text-left">User Email</th>
               <th className="px-4 py-2 text-right">Amount</th>
@@ -99,7 +99,7 @@ const AdminDepositsTab = ({ onUpdate }: AdminDepositsTabProps) => {
           </thead>
           <tbody>
             {deposits.map((deposit) => (
-              <tr key={deposit.id} className="border-b border-slate-700 hover:bg-slate-700 transition">
+              <tr key={deposit.id} className="border-b border-border hover:bg-muted/50 transition">
                 <td className="px-4 py-3">{deposit.profiles?.email}</td>
                 <td className="px-4 py-3 text-right font-semibold text-green-400">${Number(deposit.amount).toFixed(2)}</td>
                 <td className="px-4 py-3 text-center">

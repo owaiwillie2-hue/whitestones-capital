@@ -72,45 +72,45 @@ const AdminKYCTab = ({ onUpdate }: AdminKYCTabProps) => {
   };
 
   if (loading) {
-    return <div className="text-white">Loading KYC documents...</div>;
+    return <div className="text-foreground">Loading KYC documents...</div>;
   }
 
   return (
     <div className="space-y-4">
       {showImages && selectedKYC && (
-        <div className="bg-slate-700 p-6 rounded-lg mb-6">
+        <div className="bg-card border border-border p-6 rounded-lg mb-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-white font-semibold">{selectedKYC.profiles?.email}</h3>
+            <h3 className="text-foreground font-semibold">{selectedKYC.profiles?.email}</h3>
             <Button onClick={() => setShowImages(false)} variant="outline" size="sm">Close</Button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {selectedKYC.id_front_url && (
               <div>
-                <p className="text-slate-300 text-sm mb-2">ID Front</p>
+                <p className="text-muted-foreground text-sm mb-2">ID Front</p>
                 <img 
                   src={getImageUrl(selectedKYC.id_front_url)} 
                   alt="ID Front" 
-                  className="rounded border border-slate-600 max-h-48 object-cover w-full"
+                  className="rounded border border-border max-h-48 object-cover w-full"
                 />
               </div>
             )}
             {selectedKYC.id_back_url && (
               <div>
-                <p className="text-slate-300 text-sm mb-2">ID Back</p>
+                <p className="text-muted-foreground text-sm mb-2">ID Back</p>
                 <img 
                   src={getImageUrl(selectedKYC.id_back_url)} 
                   alt="ID Back" 
-                  className="rounded border border-slate-600 max-h-48 object-cover w-full"
+                  className="rounded border border-border max-h-48 object-cover w-full"
                 />
               </div>
             )}
             {selectedKYC.selfie_url && (
               <div>
-                <p className="text-slate-300 text-sm mb-2">Selfie</p>
+                <p className="text-muted-foreground text-sm mb-2">Selfie</p>
                 <img 
                   src={getImageUrl(selectedKYC.selfie_url)} 
                   alt="Selfie" 
-                  className="rounded border border-slate-600 max-h-48 object-cover w-full"
+                  className="rounded border border-border max-h-48 object-cover w-full"
                 />
               </div>
             )}
@@ -119,8 +119,8 @@ const AdminKYCTab = ({ onUpdate }: AdminKYCTabProps) => {
       )}
 
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-slate-300">
-          <thead className="text-xs text-slate-400 uppercase bg-slate-700">
+        <table className="w-full text-sm text-foreground">
+          <thead className="text-xs text-muted-foreground uppercase bg-muted">
             <tr>
               <th className="px-4 py-2 text-left">User Email</th>
               <th className="px-4 py-2 text-left">ID Number</th>
@@ -131,7 +131,7 @@ const AdminKYCTab = ({ onUpdate }: AdminKYCTabProps) => {
           </thead>
           <tbody>
             {kycs.map((kyc) => (
-              <tr key={kyc.id} className="border-b border-slate-700 hover:bg-slate-700 transition">
+              <tr key={kyc.id} className="border-b border-border hover:bg-muted/50 transition">
                 <td className="px-4 py-3">{kyc.profiles?.email}</td>
                 <td className="px-4 py-3 text-sm">{kyc.id_number || 'N/A'}</td>
                 <td className="px-4 py-3 text-center">

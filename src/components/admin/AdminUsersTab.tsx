@@ -36,14 +36,14 @@ const AdminUsersTab = ({ onUpdate }: AdminUsersTabProps) => {
   };
 
   if (loading) {
-    return <div className="text-white">Loading users...</div>;
+    return <div className="text-foreground">Loading users...</div>;
   }
 
   return (
     <div className="space-y-4">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-slate-300">
-          <thead className="text-xs text-slate-400 uppercase bg-slate-700">
+        <table className="w-full text-sm text-foreground">
+          <thead className="text-xs text-muted-foreground uppercase bg-muted">
             <tr>
               <th className="px-4 py-2 text-left">Email</th>
               <th className="px-4 py-2 text-left">Name</th>
@@ -55,7 +55,7 @@ const AdminUsersTab = ({ onUpdate }: AdminUsersTabProps) => {
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user.id} className="border-b border-slate-700 hover:bg-slate-700 transition">
+              <tr key={user.id} className="border-b border-border hover:bg-muted/50 transition">
                 <td className="px-4 py-3">{user.email}</td>
                 <td className="px-4 py-3">{user.full_name}</td>
                 <td className="px-4 py-3 text-right text-green-400">
@@ -83,7 +83,7 @@ const AdminUsersTab = ({ onUpdate }: AdminUsersTabProps) => {
           </tbody>
         </table>
       </div>
-      <p className="text-slate-400 text-sm">Total Users: {users.length}</p>
+      <p className="text-muted-foreground text-sm">Total Users: {users.length}</p>
     </div>
   );
 };
