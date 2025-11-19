@@ -19,7 +19,17 @@ const Referrals = () => {
   const generateReferralCode = async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
-    setReferralCode(`${window.location.origin}/signup?ref=${user.id}`);
+
+    // Get user's referral code from profile
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('user_id', user.id)
+      .single();
+
+    if (profile && (profile as any).referral_code) {
+      setReferralCode(`${window.location.origin}/signup?ref=${(profile as any).referral_code}`);
+    }
   };
 
   const fetchReferrals = async () => {
@@ -54,11 +64,18 @@ const Referrals = () => {
           <CardTitle>Your Referral Link</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex gap-2">
-            <Input value={referralCode} readOnly />
-            <Button onClick={copyToClipboard}>
-              <Copy className="h-4 w-4" />
-            </Button>
+          <div>
+            {referralCode && referralCode.includes('ref=') && (
+              <p className="text-sm text-muted-foreground mb-2">
+                Your referral code: <span className="font-bold text-primary text-lg">{referralCode.split('ref=')[1]}</span>
+              </p>
+            )}
+            <div className="flex gap-2">
+              <Input value={referralCode} readOnly />
+              <Button onClick={copyToClipboard}>
+                <Copy className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>

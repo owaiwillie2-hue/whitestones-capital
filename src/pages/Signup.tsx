@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,6 +12,7 @@ import { countries } from '@/utils/countries';
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { t, language, setLanguage } = useLanguage();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,8 +20,17 @@ const Signup = () => {
   const [phone, setPhone] = useState('');
   const [dob, setDob] = useState('');
   const [country, setCountry] = useState('');
+  const [referralCode, setReferralCode] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Auto-fill referral code from URL
+    const refCode = searchParams.get('ref');
+    if (refCode) {
+      setReferralCode(refCode);
+    }
+  }, [searchParams]);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,6 +68,28 @@ const Signup = () => {
           date_of_birth: dob,
           country: country,
         }).eq('user_id', data.user.id);
+
+        // Handle referral if code provided
+        if (referralCode && referralCode.trim()) {
+          try {
+            const { data: referrer } = await supabase
+              .from('profiles')
+              .select('user_id')
+              .ilike('referral_code' as any, referralCode.toUpperCase())
+              .maybeSingle();
+
+            if (referrer) {
+              await supabase.from('referrals').insert({
+                referrer_id: referrer.user_id,
+                referred_id: data.user.id,
+                bonus_amount: 50,
+                bonus_paid: false,
+              });
+            }
+          } catch (err) {
+            console.error('Referral error:', err);
+          }
+        }
 
         toast.success('Account created successfully! Please check your email to verify your account.');
         navigate('/login');
@@ -177,6 +209,19 @@ const Signup = () => {
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="referralCode">Referral Code (Optional)</Label>
+              <Input
+                id="referralCode"
+                type="text"
+                value={referralCode}
+                onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
+                placeholder="Enter referral code"
+                className="mt-1 uppercase"
+                maxLength={6}
+              />
             </div>
 
             <div className="flex items-start space-x-2">
