@@ -16,13 +16,14 @@ const AdminReferralsTab = () => {
         .from('referrals')
         .select(`
           *,
-          referrer_profile:referrer_id(email),
-          referred_profile:referred_id(email)
+          referrer_profile:profiles!referrals_referrer_id_fkey(email, full_name),
+          referred_profile:profiles!referrals_referred_id_fkey(email, full_name)
         `)
         .order('created_at', { ascending: false });
 
       setReferrals(data || []);
     } catch (error) {
+      console.error('Error fetching referrals:', error);
       toast.error('Failed to fetch referrals');
     } finally {
       setLoading(false);
@@ -40,7 +41,9 @@ const AdminReferralsTab = () => {
           <thead className="text-xs text-slate-400 uppercase bg-slate-700">
             <tr>
               <th className="px-4 py-2 text-left">Referrer</th>
+              <th className="px-4 py-2 text-left">Referrer Email</th>
               <th className="px-4 py-2 text-left">Referred User</th>
+              <th className="px-4 py-2 text-left">Referred Email</th>
               <th className="px-4 py-2 text-right">Bonus</th>
               <th className="px-4 py-2 text-center">Bonus Paid</th>
               <th className="px-4 py-2 text-center">Date</th>
@@ -49,8 +52,10 @@ const AdminReferralsTab = () => {
           <tbody>
             {referrals.map((referral) => (
               <tr key={referral.id} className="border-b border-slate-700 hover:bg-slate-700 transition">
-                <td className="px-4 py-3 text-sm">{referral.referrer_profile?.email}</td>
-                <td className="px-4 py-3 text-sm">{referral.referred_profile?.email}</td>
+                <td className="px-4 py-3 text-sm">{referral.referrer_profile?.full_name || 'N/A'}</td>
+                <td className="px-4 py-3 text-sm">{referral.referrer_profile?.email || 'N/A'}</td>
+                <td className="px-4 py-3 text-sm">{referral.referred_profile?.full_name || 'N/A'}</td>
+                <td className="px-4 py-3 text-sm">{referral.referred_profile?.email || 'N/A'}</td>
                 <td className="px-4 py-3 text-right text-green-400 font-semibold">
                   ${Number(referral.bonus_amount).toFixed(2)}
                 </td>
