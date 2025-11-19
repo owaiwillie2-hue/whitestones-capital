@@ -142,26 +142,26 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col">
-      <div className="bg-slate-800 border-b border-slate-700 p-6">
+    <div className="min-h-screen bg-background flex flex-col">
+      <div className="bg-card border-b border-border p-6">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-white hover:bg-slate-700 p-2 rounded-lg transition"
+              className="text-foreground hover:bg-muted p-2 rounded-lg transition"
             >
               {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
             <div>
-              <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-              <p className="text-slate-400 mt-1">Whitestones Markets Management Portal</p>
+              <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
+              <p className="text-muted-foreground mt-1">Whitestones Markets Management Portal</p>
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="text-slate-300">{user?.email}</span>
+            <span className="text-foreground">{user?.email}</span>
             <button
               onClick={toggleTheme}
-              className="text-slate-300 hover:bg-slate-700 p-2 rounded-lg transition"
+              className="text-foreground hover:bg-muted p-2 rounded-lg transition"
               title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
@@ -176,12 +176,12 @@ const AdminDashboard = () => {
 
       <div className="flex flex-1 overflow-hidden">
         <div
-          className={`bg-slate-800 border-r border-slate-700 transition-all duration-300 ${
+          className={`bg-card border-r border-border transition-all duration-300 ${
             sidebarOpen ? 'w-64' : 'w-0'
           } overflow-hidden`}
         >
           <nav className="p-4 space-y-2">
-            <h2 className="text-white text-lg font-semibold px-4 py-2 mb-4">Management Tools</h2>
+            <h2 className="text-foreground text-lg font-semibold px-4 py-2 mb-4">Management Tools</h2>
             {menuItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -190,8 +190,8 @@ const AdminDashboard = () => {
                   onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
                     activeTab === item.id
-                      ? 'bg-blue-600 text-white'
-                      : 'text-slate-300 hover:bg-slate-700'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-muted-foreground hover:bg-muted'
                   }`}
                 >
                   <Icon className="w-5 h-5" />
@@ -205,48 +205,48 @@ const AdminDashboard = () => {
         <div className="flex-1 overflow-auto">
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              <Card className="bg-slate-800 border-slate-700">
+              <Card>
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-slate-400 text-sm">Total Users</p>
-                      <p className="text-3xl font-bold text-white">{stats.totalUsers}</p>
+                      <p className="text-muted-foreground text-sm">Total Users</p>
+                      <p className="text-3xl font-bold text-foreground">{stats.totalUsers}</p>
                     </div>
                     <Users className="w-8 h-8 text-blue-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-slate-800 border-slate-700">
+              <Card>
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-slate-400 text-sm">Pending Deposits</p>
-                      <p className="text-3xl font-bold text-yellow-400">{stats.pendingDeposits}</p>
+                      <p className="text-muted-foreground text-sm">Pending Deposits</p>
+                      <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">{stats.pendingDeposits}</p>
                     </div>
                     <AlertCircle className="w-8 h-8 text-yellow-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-slate-800 border-slate-700">
+              <Card>
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-slate-400 text-sm">Pending Withdrawals</p>
-                      <p className="text-3xl font-bold text-yellow-400">{stats.pendingWithdrawals}</p>
+                      <p className="text-muted-foreground text-sm">Pending Withdrawals</p>
+                      <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">{stats.pendingWithdrawals}</p>
                     </div>
                     <AlertCircle className="w-8 h-8 text-yellow-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-slate-800 border-slate-700">
+              <Card>
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-slate-400 text-sm">Pending KYC</p>
-                      <p className="text-3xl font-bold text-red-400">{stats.pendingKYC}</p>
+                      <p className="text-muted-foreground text-sm">Pending KYC</p>
+                      <p className="text-3xl font-bold text-red-600 dark:text-red-400">{stats.pendingKYC}</p>
                     </div>
                     <FileCheck className="w-8 h-8 text-red-400" />
                   </div>
@@ -254,9 +254,9 @@ const AdminDashboard = () => {
               </Card>
             </div>
 
-            <Card className="bg-slate-800 border-slate-700">
+            <Card>
               <CardHeader>
-                <CardTitle className="text-white text-2xl">
+                <CardTitle className="text-foreground text-2xl">
                   {menuItems.find(item => item.id === activeTab)?.label || 'Analytics'}
                 </CardTitle>
               </CardHeader>

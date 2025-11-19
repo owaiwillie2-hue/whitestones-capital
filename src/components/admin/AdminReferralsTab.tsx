@@ -31,14 +31,14 @@ const AdminReferralsTab = () => {
   };
 
   if (loading) {
-    return <div className="text-white">Loading referrals...</div>;
+    return <div className="text-foreground">Loading referrals...</div>;
   }
 
   return (
     <div className="space-y-4">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-slate-300">
-          <thead className="text-xs text-slate-400 uppercase bg-slate-700">
+        <table className="w-full text-sm text-foreground">
+          <thead className="text-xs text-muted-foreground uppercase bg-muted">
             <tr>
               <th className="px-4 py-2 text-left">Referrer</th>
               <th className="px-4 py-2 text-left">Referrer Email</th>
@@ -51,7 +51,7 @@ const AdminReferralsTab = () => {
           </thead>
           <tbody>
             {referrals.map((referral) => (
-              <tr key={referral.id} className="border-b border-slate-700 hover:bg-slate-700 transition">
+              <tr key={referral.id} className="border-b border-border hover:bg-muted/50 transition">
                 <td className="px-4 py-3 text-sm">{referral.referrer_profile?.full_name || 'N/A'}</td>
                 <td className="px-4 py-3 text-sm">{referral.referrer_profile?.email || 'N/A'}</td>
                 <td className="px-4 py-3 text-sm">{referral.referred_profile?.full_name || 'N/A'}</td>
@@ -76,7 +76,7 @@ const AdminReferralsTab = () => {
           </tbody>
         </table>
       </div>
-      <p className="text-slate-400 text-sm">Total Referrals: {referrals.length}</p>
+      <p className="text-muted-foreground text-sm">Total Referrals: {referrals.length}</p>
     </div>
   );
 };

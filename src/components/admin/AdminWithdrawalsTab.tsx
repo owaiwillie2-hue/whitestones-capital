@@ -80,14 +80,14 @@ const AdminWithdrawalsTab = ({ onUpdate }: AdminWithdrawalsTabProps) => {
   };
 
   if (loading) {
-    return <div className="text-white">Loading withdrawals...</div>;
+    return <div className="text-foreground">Loading withdrawals...</div>;
   }
 
   return (
     <div className="space-y-4">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-slate-300">
-          <thead className="text-xs text-slate-400 uppercase bg-slate-700">
+        <table className="w-full text-sm text-foreground">
+          <thead className="text-xs text-muted-foreground uppercase bg-muted">
             <tr>
               <th className="px-4 py-2 text-left">User Email</th>
               <th className="px-4 py-2 text-right">Amount</th>
@@ -99,7 +99,7 @@ const AdminWithdrawalsTab = ({ onUpdate }: AdminWithdrawalsTabProps) => {
           </thead>
           <tbody>
             {withdrawals.map((withdrawal) => (
-              <tr key={withdrawal.id} className="border-b border-slate-700 hover:bg-slate-700 transition">
+              <tr key={withdrawal.id} className="border-b border-border hover:bg-muted/50 transition">
                 <td className="px-4 py-3">{withdrawal.profiles?.email}</td>
                 <td className="px-4 py-3 text-right font-semibold text-red-400">${Number(withdrawal.amount).toFixed(2)}</td>
                 <td className="px-4 py-3 text-xs">
